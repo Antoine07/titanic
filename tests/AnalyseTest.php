@@ -1,6 +1,6 @@
 <?php
 
-use App\Analyse\Analyse;
+use App\Analyse;
 use PHPUnit\Framework\TestCase;
 
 class AnalyseTest extends TestCase

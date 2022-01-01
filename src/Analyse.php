@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Analyse;
+namespace App;
 
 class Analyse{
 

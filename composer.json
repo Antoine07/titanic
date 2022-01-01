@@ -2,7 +2,7 @@
     "name": "antoine/titanic",
     "autoload": {
         "psr-4": {
-            "Antoine\\Titanic\\": "src/"
+            "App\\": "src/"
         }
     },
     "authors": [

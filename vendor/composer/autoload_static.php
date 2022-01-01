@@ -23,7 +23,7 @@ class ComposerStaticInitd637b82d7d86ccba89db1cfcb1759799
         ),
         'A' => 
         array (
-            'Antoine\\Titanic\\' => 16,
+            'App\\' => 4,
         ),
     );
 
@@ -40,7 +40,7 @@ class ComposerStaticInitd637b82d7d86ccba89db1cfcb1759799
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
-        'Antoine\\Titanic\\' => 
+        'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
