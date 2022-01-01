@@ -1,0 +1,10 @@
+language: php
+
+php:
+  - 8.0.0
+
+before_script: 
+  - git clone --depth 1 git://github.com/cake
+
+
+script: vendor/bin/atoum
