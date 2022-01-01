@@ -1,9 +1,0 @@
-language: php
-
-php:
-  - 8.0.0
-
-install:
-   - composer require twig/twig
-
-script: phpunit
