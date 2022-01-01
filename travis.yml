@@ -3,8 +3,7 @@ language: php
 php:
   - 8.0.0
 
-before_script: 
-  - git clone --depth 1 git://github.com/cake
+install:
+   - composer require twig/twig
 
-
-script: vendor/bin/atoum
+script: phpunit
