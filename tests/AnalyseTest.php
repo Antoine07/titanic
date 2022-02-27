@@ -17,4 +17,9 @@ class AnalyseTest extends TestCase
     {
         $this->assertEquals("Analyse Data Titanic", (string) $this->analyse);
     }
+
+    public function testMessage2()
+    {
+        $this->assertEquals("Analyse Data Titanic", (string) $this->analyse);
+    }
 }
