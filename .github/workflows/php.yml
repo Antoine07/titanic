@@ -1,24 +1,15 @@
-name: PHP Titanic
+name: PHP Composer
 
-on: [push]
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ dev ]
 
 jobs:
-  build-test:
+  build:
     runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - uses: php-actions/composer@v5 # or alternative dependency management
-    - name: Cache Composer
-      uses: actions/cache@v2
-      with:
-        path: ~/.composer/cache/
-        key: composer-${{ hashFiles('composer.lock') }}
-        restore-keys: composer-
-    - uses: php-actions/phpunit@v3
-    - name: Hello World
-      run: echo "Hello World"
-
+    
     services:
       mysql:
         image: mysql:latest
@@ -30,3 +21,34 @@ jobs:
           MYSQL_ROOT_PASSWORD: root
         ports:
           - 3306:3306
+        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: php-actions/composer@v5
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - uses: php-actions/phpunit@v3
+
+    - name: set-up php
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.0.11'
+        extensions: imagick, pdo, pdo_mysql
+ 
+    - name: version php
+      run: php --version
+    
+    - name: Create run script
+      run: |
+        chmod +x ./install.sh
+        ./install.sh
