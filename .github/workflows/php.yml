@@ -22,12 +22,14 @@ jobs:
 
     - name: Verify MySQL connection from host
       run: |
+        sudo apt-get update
         sudo apt-get install -y mysql-client
         mysql --host 127.0.0.1 --port 32574 -uroot -ppassword -e "SHOW DATABASES"
-        
+
     - uses: actions/checkout@v2
 
     - uses: php-actions/composer@v5
+
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v2
@@ -52,13 +54,7 @@ jobs:
         GITHUB_ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
         echo GITHUB_ACCESS_TOKEN
-    - name: run script file to create db
-      run: |
-        sudo systemctl mysqld start
-        mysql -uroot -h127.0.0.1 -e 'SELECT version()'
-        chmod +x ./install.sh
-        ./install.sh
-      shell: bash
+   
 
   check-phpstan:
 
