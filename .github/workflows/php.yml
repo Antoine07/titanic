@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: mysql:5.7
+        image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: password
         ports:
-        - 32574:3306
+        - 8806:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
@@ -23,8 +23,8 @@ jobs:
     - name: Verify MySQL connection from HOST
       run: |
         sudo apt-get update
-        sudo apt-get install -y mysql-client
-        mysql --host 127.0.0.1 --port 32574 -uroot -ppassword -e "SHOW DATABASES"
+        sudo apt-get install -y mysql-client-8.0
+        mysql --host 127.0.0.1 --port 8806 -uroot -ppassword -e "SHOW DATABASES"
 
     - uses: actions/checkout@v2
 
