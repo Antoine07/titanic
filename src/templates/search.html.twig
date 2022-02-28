@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+	<form class="mx-auto" style="width: 400px;" action="/" method="post" >
+    <h1>Search</h1>
+		<div class="input-group mb-3">
+			<select class="form-select" aria-label="Default select example">
+				<option selected>Sex</option>
+				<option value="1">Male</option>
+				<option value="2">Female</option>
+			</select>
+			<select class="form-select" aria-label="Default select example">
+				<option selected>Class</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="2">3</option>
+			</select>
+		</div>
+        <div class="input-group mb-3">
+            <button type="submit" class="btn btn-dark">Dark</button>
+        </div>
+	</form>
+{% endblock %}

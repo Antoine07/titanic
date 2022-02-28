@@ -2,7 +2,8 @@
     "name": "antoine/titanic",
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "" : "tests/"
         }
     },
     "authors": [
@@ -12,6 +13,8 @@
         }
     ],
     "require": {
-        "twig/twig": "^3.0"
+        "twig/twig": "^3.0",
+        "symfony/http-foundation": "^5.4",
+        "symfony/routing": "^5.4"
     }
 }

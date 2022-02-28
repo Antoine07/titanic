@@ -1,1 +1,1 @@
-{"version":1,"defects":{"AnalyseTest::testMessage":3},"times":{"AnalyseTest::testMessage":0.03}}
+{"version":1,"defects":{"AnalyseTest::testMessage":3,"E2eTest::testMyApp":4,"AnalysePageTest::testMyApp":4},"times":{"AnalyseTest::testMessage":0.011,"E2eTest::testMyApp":0.058,"AnalysePageTest::testMyApp":1.112}}
