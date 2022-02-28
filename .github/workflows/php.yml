@@ -9,25 +9,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
-    services:
-      mysql:
-        image: mysql:latest
-        env:
-          MYSQL_DATABASE: db_titanic
-          MYSQL_HOST: 127.0.0.1
-          MYSQL_USER: admin
-          MYSQL_PASSWORD: root
-          MYSQL_ROOT_PASSWORD: root
-        ports:
-          - 3306:3306
-        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
 
     steps:
     - uses: actions/checkout@v2
-
     - uses: php-actions/composer@v5
-
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v2
