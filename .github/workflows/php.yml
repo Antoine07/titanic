@@ -1,4 +1,4 @@
-name: CI
+name: PHP Titanic
 
 on: [push]
 
@@ -9,4 +9,24 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: php-actions/composer@v5 # or alternative dependency management
+    - name: Cache Composer
+      uses: actions/cache@v2
+      with:
+        path: ~/.composer/cache/
+        key: composer-${{ hashFiles('composer.lock') }}
+        restore-keys: composer-
     - uses: php-actions/phpunit@v3
+    - name: Hello World
+      run: echo "Hello World"
+
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_DATABASE: db_titanic
+          MYSQL_HOST: 127.0.0.1
+          MYSQL_USER: admin
+          MYSQL_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
