@@ -7,20 +7,34 @@ on:
     branches: [ dev ]
 
 jobs:
-  build:
+  check-phpunit:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: password
+        ports:
+        - 32574:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
+
+    - name: Verify MySQL connection from host
+      run: |
+        sudo apt-get install -y mysql-client
+        mysql --host 127.0.0.1 --port 32574 -uroot -ppassword -e "SHOW DATABASES"
+        
     - uses: actions/checkout@v2
+
     - uses: php-actions/composer@v5
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v2
       with:
         path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
+        key: composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: composer-
 
     - uses: php-actions/phpunit@v3
 
@@ -33,7 +47,25 @@ jobs:
     - name: version php
       run: php --version
     
-    - name: Create run script
+    - name: Create token github
+      env:
+        GITHUB_ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
+        echo GITHUB_ACCESS_TOKEN
+    - name: run script file to create db
+      run: |
+        sudo systemctl mysqld start
+        mysql -uroot -h127.0.0.1 -e 'SELECT version()'
         chmod +x ./install.sh
         ./install.sh
+      shell: bash
+
+  check-phpstan:
+
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v2
+        - uses: docker://oskarstark/phpstan-ga
+          with:
+              args: analyse src/
+    
